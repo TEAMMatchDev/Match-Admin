@@ -1,14 +1,12 @@
 {
-  "name": "neordinary-template-react-ts-admin",
-  "description": "너디너리-템플릿-리액트-타입스크립트-어드민",
+  "name": "match-admin",
+  "description": "매치 어드민",
   "version": "1.0.0",
   "homepage": ".",
   "repository": {
-    "type": "git",
-    "url": "git@github.com:neordinary/neordinary-template-react-ts-admin.git"
+    "type": "git"
   },
   "license": "Only use for softsquared project",
-  "author": "(주)소프트스퀘어드",
   "scripts": {
     "build-dev": "dotenv -e .env.development react-scripts build",
     "build-stage": "dotenv -e .env.stage react-scripts build",
@@ -72,5 +70,5 @@
       "eslint --fix src/"
     ]
   },
-  "proxy": "https://api-dev.artrivers.co.kr"
+  "proxy": "https://prod.match-api-server.com"
 }
