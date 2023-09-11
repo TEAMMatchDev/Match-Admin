@@ -1,0 +1,37 @@
+// Here you can add other styles
+
+.btn-primary {
+  background-color: #D15437;
+  border-color: #D15437;
+  color: #ffffff;
+}
+#D15437 {
+  /* 색상 속성 설정 */
+  background-color: #D15437;
+  border-color: #D15437;
+  color: #ffffff; /* 텍스트 색상을 흰색 또는 다른 적절한 색상으로 설정하세요. */
+}
+table {
+  border-collapse: collapse;
+}
+
+td {
+  cursor: pointer;
+  border: 1px solid #d8dbe0;
+}
+
+th.small {
+  min-width: 70px;
+  max-width: 70px;
+}
+
+th {
+  min-width: 150px;
+  max-width: 150px;
+  border: 1px solid #d8dbe0;
+}
+
+th.large {
+  min-width: 300px;
+  max-width: 300px;
+}
