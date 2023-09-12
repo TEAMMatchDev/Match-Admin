@@ -105,7 +105,7 @@ tsconfig.json               # typescript 를 javascript 로 변환하는 설정 
 
 ## API 연동은 어떻게 하면 될까요?
 1. src/apis/리소스별파일.ts 파일을 만들어주세요.
-```ts
+
 
 2. API 호출시 사용되는 Response Model Class 를 만들어주세요.
 - (Request 파라미터가 많거나 리소스단위를 넘겨야 할때는 Request Model Class 를 만들어서 활용해주세요.)

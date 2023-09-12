@@ -1,4 +1,5 @@
 type DoationList = {
+  userId: number
   donationRequestId: number
   username: string
   phoneNumber: string

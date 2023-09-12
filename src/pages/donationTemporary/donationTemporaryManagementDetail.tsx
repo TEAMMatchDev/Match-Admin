@@ -19,6 +19,7 @@ import {InfoBox, InfoBoxContent, InfoBoxTitle, Title} from './styles'
 
 const INFOBOXTITLE = {
   donationRequestId: '번호',
+  userId: '유저 인덱스',
   email: '이메일',
   phoneNumber: '전화번호',
   username: '이름',
@@ -70,8 +71,21 @@ const DonationTemporaryManagementDetail = (): JSX.Element => {
                       navigate(`/donation-temporary/registration/${donationRequestId}`)
                     }
                   }}
+                  style={{marginRight: '10px'}} // 오른쪽으로 10px 간격 추가
                 >
                   입금 등록
+                </CButton>
+              )}
+              {mode === 'detail' && (
+                <CButton
+                  color='primary'
+                  onClick={() => {
+                    if (donatinoDetailInfo?.userId) {
+                      navigate(`/user-management/${donatinoDetailInfo.userId}`)
+                    }
+                  }}
+                >
+                  입금 유저 정보
                 </CButton>
               )}
             </div>
