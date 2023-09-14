@@ -28,11 +28,11 @@ export const CustomButton = styled.button`
 
   &.selected {
     color: rgba(255, 255, 255, 0.87);
-    background: #321fdb;
-    border: 1px solid #321fdb;
+    background: #d15437;
+    border: 1px solid #d15437;
     &:hover {
-      background: #5141e0;
-      border: 1px solid #5141e0;
+      background: #dc8286;
+      border: 1px solid #dc8286;
     }
   }
 `

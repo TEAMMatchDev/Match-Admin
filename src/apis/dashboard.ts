@@ -5,3 +5,8 @@ export const getDashboard = async <T>(): Promise<T> => {
   const url = `/admin/users/info`
   return await request.get<T>(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
 }
+
+export const getDonationDashboard = async <T>(): Promise<T> => {
+  const url = `/admin/donations`
+  return await request.get<T>(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
+}

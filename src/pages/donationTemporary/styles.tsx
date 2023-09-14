@@ -21,6 +21,7 @@ export const CustomButton = styled.button`
 
   /*색상 */
   background: white;
+
   &:hover {
     color: black;
     border: 1px solid black;
@@ -28,11 +29,12 @@ export const CustomButton = styled.button`
 
   &.selected {
     color: rgba(255, 255, 255, 0.87);
-    background: #321fdb;
-    border: 1px solid #321fdb;
+    background: #d15437;
+    border: 1px solid #d15437;
+
     &:hover {
-      background: #5141e0;
-      border: 1px solid #5141e0;
+      background: #dc8286;
+      border: 1px solid #dc8286;
     }
   }
 `
@@ -51,6 +53,7 @@ export const InfoBox = styled.div`
 `
 
 export const InfoBoxTitle = styled.div`
+  color: #dc8286;
   text-align: left;
   line-height: 3rem;
   width: 100px;
