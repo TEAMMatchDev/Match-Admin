@@ -38,7 +38,7 @@ const _nav = [
     component: CNavItem,
     name: '프로젝트 관리',
     icon: <CIcon icon={cilSpeedometer} customClassName='nav-icon' />,
-    to: '/reservation',
+    to: '/project-management',
   },
   {
     component: CNavItem,
