@@ -2,6 +2,7 @@ import {cilSpeedometer, cilUser} from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import {CNavItem} from '@coreui/react'
 import React, {ElementType} from 'react'
+import {cilMoney, cilWallet} from '@coreui/icons/js/free'
 
 export type Badge = {
   color: string
@@ -37,13 +38,13 @@ const _nav = [
   {
     component: CNavItem,
     name: '프로젝트 관리',
-    icon: <CIcon icon={cilSpeedometer} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilWallet} customClassName='nav-icon' />,
     to: '/project-management',
   },
   {
     component: CNavItem,
     name: '임시 기부 관리',
-    icon: <CIcon icon={cilSpeedometer} customClassName='nav-icon' />,
+    icon: <CIcon icon={cilMoney} customClassName='nav-icon' />,
     to: '/donation-temporary',
   },
   /*

@@ -15,6 +15,7 @@ import {
 import React, {useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import {postDonation} from '../../apis/donationManagement'
+import {DoationList} from '../../models/DoationList'
 
 const DonationTemporaryManagementDetail = (): JSX.Element => {
   const [editStatus, setEditStatus] = useState<UserStatus | string>('ACTIVE')

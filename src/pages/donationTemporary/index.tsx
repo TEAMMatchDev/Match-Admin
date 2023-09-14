@@ -8,6 +8,7 @@ import {getDonationList} from '../../apis/donationManagement'
 import {CSmartPagination} from '../../components/custom/pagination/CSmartPagination'
 import {CSmartTable} from '../../components/custom/smart-table/CSmartTable'
 import {CustomButton, Label} from './styles'
+import { DepositStatus, DoationList, getDonationListResponse } from "../../models/DoationList";
 
 const DonationStatus = {
   EXISTENCE: '입급완료',

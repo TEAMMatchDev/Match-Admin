@@ -58,7 +58,7 @@ export const project_columns = [
     _props: {className: 'fw-semibold'},
   },
   {
-    label: '유저 번호',
+    label: '액',
     key: 'userId',
     _style: {width: '10%'},
     _props: {className: 'fw-semibold'},
@@ -325,6 +325,7 @@ const ProjectDetail = (): JSX.Element => {
           columns={project_columns}
           itemsPerPage={ITEMS_PER_PAGE}
           items={donationList}
+          onRowClick={item => navigate(`/project-management/donation/${item.donationId}`)}
           clickableRows={true}
           tableHeadProps={{color: 'primary'}}
           tableProps={{

@@ -16,6 +16,7 @@ import React, {useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import {getDonationDetail, postDonation} from '../../apis/donationManagement'
 import {InfoBox, InfoBoxContent, InfoBoxTitle, Title} from './styles'
+import {DoationList} from '../../models/DoationList'
 
 const INFOBOXTITLE = {
   donationRequestId: '번호',

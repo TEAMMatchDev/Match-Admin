@@ -7,6 +7,7 @@ const UserManagementDetail = React.lazy(() => import('./pages/userManagement/use
 const DonationTemporaryManagemnetDetail = React.lazy(
   () => import('./pages/donationTemporary/donationTemporaryManagementDetail'),
 )
+const DonationManagementDetail = React.lazy(() => import('./pages/donationDetail/donationManagementDetail'))
 const ProjectUpload = React.lazy(() => import('./pages/projectUpload/ProjectUpload'))
 const Project = React.lazy(() => import('./pages/projectManagement/index'))
 const ProjectDetail = React.lazy(() => import('./pages/projectManagement/projectDetail'))
@@ -27,6 +28,7 @@ const routes = [
   {path: '/project-management', name: 'ProjectManagement', component: Project},
   {path: '/project-management/:id', name: 'ProjectManagement', component: ProjectDetail},
   {path: '/project-management/registration', name: 'ProjectManagement', component: ProjectUpload},
+  {path: '/project-management/donation/:id', name: 'DonationManagementDetail', component: DonationManagementDetail},
   {path: '/user-management/:id', name: 'UserManagement', component: UserManagementDetail},
   {path: '/donation-temporary', name: 'DonationManagement', component: DonationManagement},
   {path: '/donation-temporary/:id', name: 'DonationManagement', component: DonationTemporaryManagemnetDetail},
