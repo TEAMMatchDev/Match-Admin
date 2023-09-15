@@ -24,7 +24,7 @@ export const getDonationList = async <T>(
 
 export const postDonation = async <T>(data: DonationRequest): Promise<string> => {
   const url = '/admin/donation-temporaries'
-  return await request.post<string>(url, data)
+  return await request.post<string>(url, data,{headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
 }
 
 export const getDonationDetail = async <T>(donationRequestId: string): Promise<T> => {
