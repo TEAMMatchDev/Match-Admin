@@ -15,7 +15,7 @@ const AccountStatus = {
   INACTIVE: '비활성화',
 }
 
-const SIZE = 20
+const SIZE = 10
 
 const columns = [
   {
