@@ -35,3 +35,10 @@ th.large {
   min-width: 300px;
   max-width: 300px;
 }
+
+.full-width-container {
+  width: 100%; /* 전체 너비 사용 */
+  max-width: none; /* 최대 너비 제한 없음 */
+  padding: 0; /* 내부 여백 없음 */
+  margin: 0 auto; /* 중앙 정렬 */
+}

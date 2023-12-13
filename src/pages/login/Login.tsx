@@ -47,7 +47,7 @@ const Login = () => {
 
       navigate(`/dashboard`)
     } catch (error) {
-      alert(`${error.message}`)
+      alert(error.response.data.message)
     }
   }
 

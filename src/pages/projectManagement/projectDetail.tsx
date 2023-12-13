@@ -58,7 +58,7 @@ export const project_columns = [
     _props: {className: 'fw-semibold'},
   },
   {
-    label: '액',
+    label: '유저 번호',
     key: 'userId',
     _style: {width: '10%'},
     _props: {className: 'fw-semibold'},
@@ -163,7 +163,7 @@ const ProjectDetail = (): JSX.Element => {
           setProjectStatus(response.status)
         }
       } catch (error) {
-        alert(`${error.message}`)
+        alert(error.response.data.message)
       }
     }
     projectDetailApi()
@@ -211,7 +211,7 @@ const ProjectDetail = (): JSX.Element => {
       window.location.reload()
       setShowConfirmation(false)
     } catch (error) {
-      alert(`${error.message}`)
+      alert(error.response.data.message)
     }
   }
 

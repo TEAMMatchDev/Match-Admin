@@ -230,7 +230,7 @@ const UserManagement = (): JSX.Element => {
   }
 
   return (
-    <div>
+    <div className='full-width-container'>
       <CContainer className='my-3'>
         <CRow sm={{cols: 1}} className='my-3'>
           <CCol md={6}>

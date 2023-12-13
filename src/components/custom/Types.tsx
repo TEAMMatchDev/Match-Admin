@@ -2,10 +2,20 @@ import PropTypes from 'prop-types'
 
 export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 
-export type Colors = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | string
+export type Colors =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'danger'
+  | 'warning'
+  | 'info'
+  | 'dark'
+  | 'light'
+  | 'black'
+  | string
 
 export const colorPropType = PropTypes.oneOfType([
-  PropTypes.oneOf(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark', 'light']),
+  PropTypes.oneOf(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark', 'light', 'black']),
   PropTypes.string,
 ])
 

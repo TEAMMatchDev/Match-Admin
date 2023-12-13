@@ -2,13 +2,16 @@ import axios, {AxiosInstance, AxiosInterceptorManager, AxiosRequestConfig, Axios
 import {JWT_KEY} from '../../config/constant'
 
 class customError extends Error {
-  constructor(public code: number, message: string) {
+  constructor(public code: number, public message: string) {
     super(message)
     this.code = code
   }
 
   getCode() {
     return this.code
+  }
+  getMessage() {
+    return this.message
   }
 }
 
@@ -56,16 +59,28 @@ request.interceptors.request.use(
 
 request.interceptors.response.use(
   response => {
+    // 요청이 성공적으로 처리되었을 때
     if (response.data.isSuccess) {
       return response.data.result
     } else {
-      return Promise.reject(new customError(response.data.code, response.data.message))
+      // 에러가 발생했을 때 customError 인스턴스를 생성합니다.
+      const errorInstance = new customError(response.data.code, response.data.message)
+      return Promise.reject(errorInstance)
     }
   },
   error => {
-    console.log(error)
+    // 네트워크 에러나 서버 에러 등 axios 요청 자체에서 오류가 발생했을 때
+    // 에러 메시지를 브라우저의 alert으로 띄우기
+    if (error.response) {
+    } else if (error.request) {
+      // 요청이 이루어 졌으나 응답을 받지 못한 경우
+      alert('서버로부터 응답을 받지 못했습니다.')
+    } else {
+      // 요청을 만드는 중에 오류가 발생한 경우
+      alert('요청 중에 오류가 발생했습니다.')
+    }
+
     return Promise.reject(error)
   },
 )
-
 export default request

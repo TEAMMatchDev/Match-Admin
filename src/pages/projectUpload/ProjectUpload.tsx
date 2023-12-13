@@ -173,9 +173,8 @@ function ProjectUpload() {
             <CInputGroupText>후원 분야</CInputGroupText>
             <CFormSelect name='projectKind' value={projectData.projectKind} onChange={handleChange}>
               <option value='NOT'>후원분야를 선택해주세요</option>
-              <option value='DOG'>강아지</option>
               <option value='CHILDREN'>어린이</option>
-              <option value='YOUTH'>어린이</option>
+              <option value='YOUTH'>청년</option>
               <option value='WOMEN'>여성</option>
               <option value='ELDER'>어르신</option>
               <option value='DISABLED'>장애인</option>

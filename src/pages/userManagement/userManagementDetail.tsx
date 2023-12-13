@@ -1,13 +1,23 @@
 import {CButton, CCol, CContainer, CFormSelect, CRow} from '@coreui/react'
 import React, {useEffect, useState} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
-import {getUserDetail, updateUserDetail} from '../../apis/userManagement'
+import {
+  getUserDetail,
+  updateBirth,
+  updateEmail,
+  updateGender,
+  updateNickname,
+  updatePhone,
+  updateUserDetail,
+} from '../../apis/userManagement'
 import {InfoBox, InfoBoxContent, InfoBoxTitle, Title} from './styles'
+import EditModal from './userEditModal'
 
 const INFOBOXTITLE = {
   userId: '번호',
   name: '이름',
   email: '이메일',
+  nickname: '닉네임',
   birth: '생일 정보',
   socialType: '가입 유형',
   phoneNumber: '전화번호',
@@ -33,7 +43,12 @@ const UserManagementDetail = (): JSX.Element => {
   const params = useParams()
   const userId = params.id
   const navigate = useNavigate()
-
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [userDetail, setUserDetail] = useState({})
+  const [fieldToEdit, setFieldToEdit] = useState('')
+  const [editValue, setEditValue] = useState('')
+  const [title, setTitle] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
   useEffect(() => {
     const userDetailApi = async () => {
       try {
@@ -42,7 +57,6 @@ const UserManagementDetail = (): JSX.Element => {
           navigate(-1)
         } else {
           const response = await getUserDetail<UserDetailInfo>(userId)
-          console.log(response.card)
           setUserDetailInfo(response)
           setEditStatus(response.status)
         }
@@ -70,55 +84,105 @@ const UserManagementDetail = (): JSX.Element => {
     }
   }
 
+  const handleEditButtonClick = (title: string, field: string, value: string) => {
+    setTitle(title)
+    console.log(field)
+    setFieldToEdit(field)
+    setEditValue(value)
+    setShowEditModal(true)
+  }
+
+  // 모달을 열고 닫는 함수
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
+  }
+
+  const handleSaveEdit = async () => {
+    if (!userId) return // userId 가 없다면 함수를 종료합니다.
+    console.log('저장 ' + editValue)
+    const id = Number(userId)
+    try {
+      let response: any
+      switch (fieldToEdit) {
+        case 'birth':
+          response = await updateBirth(id, editValue)
+          break
+        case 'email':
+          response = await updateEmail(id, editValue)
+          break
+        case 'phoneNumber':
+          response = await updatePhone(id, editValue)
+          break
+        case 'gender':
+          let genderParam: string
+          if (editValue === '여성') genderParam = 'FEMALE'
+          else if (editValue === '남성') genderParam = 'MALE'
+          else genderParam = 'UNKNOWN'
+          response = await updateGender(id, genderParam)
+          break
+        case 'nickname':
+          response = await updateNickname(id, editValue)
+          break
+        default:
+          throw new Error('Invalid field to edit')
+      }
+      alert('성공적으로 업데이트 되었습니다.')
+    } catch (error) {
+      alert(error.response.data.message)
+    } finally {
+      setShowEditModal(false)
+      window.location.reload()
+    }
+  }
+
   return (
     <>
       <CContainer>
         <CRow className='my-3'>
           <CCol className='d-flex justify-content-between'>
             <Title>유저 상세 정보</Title>
-            {mode === 'edit' ? (
-              <div className='d-flex gap-2'>
-                <CButton color='dark' onClick={() => setMode('detail')}>
-                  뒤로 가기
-                </CButton>
-                <CButton onClick={handleEditCompleteButton}>수정 완료</CButton>
-              </div>
-            ) : (
-              <CButton onClick={() => setMode('edit')}>수정 시작</CButton>
-            )}
           </CCol>
         </CRow>
         <CRow>
-          {typeof userDetailInfo !== 'undefined' ? (
+          {typeof userDetailInfo !== 'undefined' &&
             Object.entries(userDetailInfo).map(([key, value]) => {
-              return mode === 'edit' && key === 'status' ? (
-                <InfoBox key={`infoBox-${key}-${mode}`} className='my-1'>
-                  <InfoBoxTitle>{INFOBOXTITLE[key as keyof typeof INFOBOXTITLE]}</InfoBoxTitle>
-                  <CFormSelect
-                    className='select'
-                    aria-label='account-status'
-                    defaultValue={editStatus}
-                    onChange={e => {
-                      handleEditStatusChange(e.target.value)
-                    }}
-                  >
-                    <option value='ACTIVE'>활성화</option>
-                    <option value='INACTIVE'>비활성화</option>
-                  </CFormSelect>
-                </InfoBox>
-              ) : (
-                <InfoBox key={`infoBox-${key}-${mode}`} className='my-1'>
-                  <InfoBoxTitle>{INFOBOXTITLE[key as keyof typeof INFOBOXTITLE]}</InfoBoxTitle>
-                  <InfoBoxContent>
-                    {key === 'status' || key === 'card' ? AccountStatus[value as keyof typeof AccountStatus] : value}
-                  </InfoBoxContent>
+              const isEditable = ['birth', 'email', 'gender', 'phoneNumber', 'nickname'].includes(key)
+              return (
+                <InfoBox
+                  key={`infoBox-${key}-${mode}`}
+                  className='my-1 d-flex justify-content-between align-items-center'
+                >
+                  <div className='d-flex align-items-center'>
+                    <InfoBoxTitle>{INFOBOXTITLE[key as keyof typeof INFOBOXTITLE]}</InfoBoxTitle>
+                    <InfoBoxContent>
+                      {key === 'status' || key === 'card' ? AccountStatus[value as keyof typeof AccountStatus] : value}
+                    </InfoBoxContent>
+                  </div>
+
+                  {/* 버튼을 오른쪽 끝에 위치시킵니다. */}
+                  {isEditable && (
+                    <CButton
+                      size='sm'
+                      color='dark'
+                      onClick={() => handleEditButtonClick(INFOBOXTITLE[key as keyof typeof INFOBOXTITLE], key, value)}
+                    >
+                      수정
+                    </CButton>
+                  )}
                 </InfoBox>
               )
-            })
-          ) : (
-            <></>
-          )}
+            })}
         </CRow>
+        {showEditModal && (
+          <EditModal
+            visible={showEditModal}
+            title={`${title} 수정`}
+            fieldToEdit={fieldToEdit}
+            initialValue={editValue}
+            onClose={() => setShowEditModal(false)}
+            userId={userId}
+          />
+        )}
       </CContainer>
     </>
   )

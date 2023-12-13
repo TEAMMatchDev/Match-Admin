@@ -41,3 +41,28 @@ export const downloadUserListCsv = async (
     responseType: 'blob',
   })
 }
+
+export const updateBirth = async (userId: number, birth: string) => {
+  const url = `/admin/users/birth/${userId}?birth=${birth}`
+  return await request.patch(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
+}
+
+export const updateEmail = async (userId: number, email: string) => {
+  const url = `/admin/users/email/${userId}?email=${email}`
+  return await request.patch(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
+}
+
+export const updatePhone = async (userId: number, phone: string) => {
+  const url = `/admin/users/phone/${userId}?phone=${phone}`
+  return await request.patch(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
+}
+
+export const updateGender = async (userId: number, gender: string) => {
+  const url = `/admin/users/gender/${userId}?gender=${gender}`
+  return await request.patch(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
+}
+
+export const updateNickname = async (userId: number, nickname: string) => {
+  const url = `/admin/users/nickname/${userId}?nickname=${nickname}`
+  return await request.patch(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
+}

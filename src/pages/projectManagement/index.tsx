@@ -99,7 +99,7 @@ const Project = (): JSX.Element => {
       setProjectList([...resProjectList])
       setPageNum(Math.ceil(response?.totalCnt / ITEMS_PER_PAGE))
     } catch (error) {
-      alert(`${error.message}`)
+      alert(error.response.data.message)
       navigate('/login')
     }
   }
