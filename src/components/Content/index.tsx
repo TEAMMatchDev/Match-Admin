@@ -5,18 +5,14 @@ import {Navigate, Route, Routes, useLocation} from 'react-router-dom'
 // routes config
 import routes from '../../routes'
 
-const loading = (
-  <div className='pt-3 text-center'>
-    <div className='sk-spinner sk-spinner-pulse' />
-  </div>
-)
+const loading = <div className='pt-3 text-center'></div>
 
 const Content = () => {
   const location = useLocation()
   // const [isExistsFilteredRoute] = useState(routes.filter(route => route.path === location.pathname).length > 0)
 
   return (
-    <CContainer lg>
+    <CContainer fluid>
       <Suspense fallback={loading}>
         <Routes>
           {routes.map((route, idx) => {

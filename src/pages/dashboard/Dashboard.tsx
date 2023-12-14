@@ -122,7 +122,7 @@ const Dashboard = () => {
             <CCardTitle className='d-flex justify-content-end'>
               <CIcon icon={cilUserPlus} size='xxl' className=''></CIcon>
             </CCardTitle>
-            <CCardTitle className='h4'>{dashboardInfo.monthUserCnt.toLocaleString()}</CCardTitle>
+            <CCardTitle className='h4'>{dashboardInfo.deleteUserCnt.toLocaleString()}</CCardTitle>
             <CCardText>총 탈퇴자</CCardText>
           </CCardBody>
         </CCard>

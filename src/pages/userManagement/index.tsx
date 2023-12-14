@@ -340,7 +340,7 @@ const UserManagement = (): JSX.Element => {
           items={userList}
           clickableRows={true}
           onRowClick={item => navigate(`${item.userId}`)}
-          tableHeadProps={{color: 'primary'}}
+          tableHeadProps={{color: 'dark'}}
           tableProps={{
             hover: true,
             responsive: true,

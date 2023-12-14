@@ -7,6 +7,16 @@ export const getUserDetail = async <T>(userIdx: string): Promise<T> => {
   return await request.get<T>(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
 }
 
+export const getUserDonationInfo = async <T>(userId: string): Promise<T> => {
+  const url = `/admin/users/donations/${userId}`
+  return await request.get<T>(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
+}
+
+export const getDonationLists = async <T>(userId: string | undefined, size: number, page: number): Promise<T> => {
+  const url = `/admin/users/flame/${userId}?page=${page}&size=${size}`
+  return await request.get<T>(url, {headers: {'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`}})
+}
+
 export const updateUserDetail = async <T>(userIdx: number): Promise<T> => {
   const url = `/admin/user/${userIdx}`
   const data = null

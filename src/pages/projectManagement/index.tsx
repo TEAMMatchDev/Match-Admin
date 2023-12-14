@@ -118,31 +118,7 @@ const Project = (): JSX.Element => {
         </CButton>
         <CRow>
           <CCol md={6}>
-            {/*<div className='d-flex gap-1'>
-              <CFormSelect size='sm' aria-label='sort-by' className='w-25' disabled>
-                <option value='name'>닉네임</option>
-              </CFormSelect>
-              <CFormInput
-                placeholder='검색어를 입력해주세요.'
-                className='w-75'
-                onChange={e =>
-                  setFilter(prev => {
-                    return {
-                      ...prev,
-                      keyword: e.target.value,
-                    }
-                  })
-                }
-                value={filter.keyword}
-              />
-            </div>*/}
-            <div className='d-flex justify-content-end my-3'>
-              {/*
-              <CButton className='mx-3' onClick={downloadCsvApi}>
-                CSV 다운로드
-              </CButton>
-              */}
-            </div>
+            <div className='d-flex justify-content-end my-3'></div>
           </CCol>
         </CRow>
       </CContainer>
@@ -153,7 +129,7 @@ const Project = (): JSX.Element => {
           items={projectList}
           clickableRows={true}
           onRowClick={item => navigate(`/project-management/${item.projectId}`)}
-          tableHeadProps={{color: 'primary'}}
+          tableHeadProps={{color: 'dark'}}
           tableProps={{
             hover: true,
             responsive: true,

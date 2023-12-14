@@ -327,7 +327,7 @@ const ProjectDetail = (): JSX.Element => {
           items={donationList}
           onRowClick={item => navigate(`/project-management/donation/${item.donationId}`)}
           clickableRows={true}
-          tableHeadProps={{color: 'primary'}}
+          tableHeadProps={{color: 'dark'}}
           tableProps={{
             hover: true,
             responsive: true,

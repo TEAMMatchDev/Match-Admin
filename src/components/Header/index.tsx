@@ -47,24 +47,7 @@ const Header = () => {
         </CHeaderToggler>
         <CHeaderNav className='d-none d-md-flex me-auto'>
           <CNavItem className='d-flex'>
-            <p className='m-auto'>
-              {/* {process.env.REACT_APP_ENV !== 'production' ? (
-                <>
-                  REACT_APP_ENV : ${process.env.REACT_APP_ENV}
-                  <br />
-                  REACT_APP_API : ${process.env.REACT_APP_API}
-                  <br />
-                  프로젝트 : ${packageJson.name}
-                  <br />
-                  설명 : ${packageJson.description}
-                  <br />
-                  버전 : ${packageJson.version}
-                </>
-              ) : (
-                ''
-              )} */}
-              {headerTitle}
-            </p>
+            <p className='m-auto'>{headerTitle}</p>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className='px-3'>

@@ -28,14 +28,27 @@ type UserDetailInfo = {
   createdAt: any
 }
 
-type UserCard = {
-  id: number
-  cardCode: string
-  cardName: string
-  cardNo: string
-  cardAbleStatus: string
+type UserFlameList = {
+  donationId: number
+  donationCnt: number
+  inherenceName: string
+  inherenceNumber: string
+  donationStatus: string
+  donationStatusName: string
 }
 
+type UserFlameListResponse = {
+  isLast: boolean
+  totalCnt: number
+  contents: UserFlameList[]
+}
+
+type UserDonationInfo = {
+  regularCnt: number
+  totalCnt: number
+  totalAmount: string
+  isCard: boolean
+}
 type UserStatus = 'ACTIVE' | 'INACTIVE'
 
 type getUserListResponse = {
