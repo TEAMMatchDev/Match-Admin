@@ -1,8 +1,8 @@
-import {cilSpeedometer, cilUser} from '@coreui/icons'
+import {cilBook, cilSpeedometer, cilUser} from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import {CNavItem} from '@coreui/react'
 import React, {ElementType} from 'react'
-import {cilMoney, cilWallet} from '@coreui/icons/js/free'
+import {cilMenu, cilMoney, cilWallet} from '@coreui/icons/js/free'
 
 export type Badge = {
   color: string
@@ -43,26 +43,30 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: '배너 관리',
+    icon: <CIcon icon={cilBook} customClassName='nav-icon' />,
+    to: '/banner',
+  },
+  {
+    component: CNavItem,
+    name: '아밴트 관리',
+    icon: <CIcon icon={cilBook} customClassName='nav-icon' />,
+    to: '/event',
+  },
+  {
+    component: CNavItem,
+    name: '공지사항 관리',
+    icon: <CIcon icon={cilBook} customClassName='nav-icon' />,
+    to: '/notice',
+  },
+  {
+    component: CNavItem,
     name: '임시 기부 관리',
     icon: <CIcon icon={cilMoney} customClassName='nav-icon' />,
     to: '/donation-temporary',
   },
+
   /*
-  {
-    component: CNavItem,
-    name: '공간 관리',
-    icon: <CIcon icon={cilSpeedometer} customClassName='nav-icon' />,
-    to: '/space',
-  },
-
-  {
-    component: CNavItem,
-    name: '플레이스 관리',
-    icon: <CIcon icon={cilSpeedometer} customClassName='nav-icon' />,
-    to: '/exhibition',
-  },
-
-
   {
     component: CNavItem,
     name: '추천 검색어 관리',

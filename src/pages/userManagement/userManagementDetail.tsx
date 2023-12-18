@@ -171,8 +171,6 @@ const UserManagementDetail = (): JSX.Element => {
       page: Number(searchParams.get('page')) < 1 ? 1 : Number(searchParams.get('page')),
       size: calibratedPageSize(size),
     }
-
-    console.log(size)
     setFilter(currentFilter)
     getDonationListApi(currentFilter)
   }, [searchParams])
