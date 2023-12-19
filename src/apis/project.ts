@@ -1,5 +1,3 @@
-import {IImageResponse} from '../models/Exhibition'
-import {IBannerCreateResponse, IBannerItem} from './../models/Banner'
 import request from './core'
 import {JWT_KEY} from '../config/constant'
 export const getProjectList = async <T>(size: number, page: number): Promise<T> => {

@@ -17,10 +17,12 @@ export const initialBannerState: IBannerItem = {
   endDate: '',
   name: '',
   startDate: '',
+  bannerId: 0,
   bannerImg: '',
   bannerType: '',
   bannerContent: '',
   contentsUrl: '',
+  display: true,
 }
 
 function BannerDetail({isNew}: BannerDetailProps) {
@@ -141,6 +143,35 @@ function BannerDetail({isNew}: BannerDetailProps) {
           checkIsDisabled={checkIsDisabled}
         />
         <S.ContentWrap>
+          <div>
+            {BANNER_LEFT_SECTION_INPUTS.map(inputName => (
+              <S.InputItemWrap key={BANNER_INPUTS[inputName].name} className={inputName === 'display' ? 'display' : ''}>
+                <label htmlFor={BANNER_INPUTS[inputName].name}>{BANNER_INPUTS[inputName].label}</label>
+                {inputName === 'display' ? (
+                  <S.CustomSwtich
+                    size='xl'
+                    onLabel='노출'
+                    offLabel='숨기기'
+                    onChange={handleChange}
+                    id={BANNER_INPUTS[inputName].name}
+                    disabled={!isEditMode}
+                  />
+                ) : (
+                  <input
+                    value={bannerData[inputName] as string}
+                    onChange={handleChange}
+                    type={BANNER_INPUTS[inputName].type}
+                    id={BANNER_INPUTS[inputName].name}
+                    aria-describedby={BANNER_INPUTS[inputName].name}
+                    maxLength={BANNER_INPUTS[inputName].max}
+                    placeholder={BANNER_INPUTS[inputName].placeholder}
+                    required
+                    disabled={!isEditMode}
+                  />
+                )}
+              </S.InputItemWrap>
+            ))}
+          </div>
           <S.ImageWrap>
             {imageFile ? (
               <img src={URL.createObjectURL(imageFile)} alt='banner' />

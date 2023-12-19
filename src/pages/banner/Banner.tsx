@@ -1,3 +1,4 @@
+// Banner.tsx
 import React, {useEffect, useState} from 'react'
 import {useNavigate, useSearchParams} from 'react-router-dom'
 import {CButton, CCol, CContainer, CImage, CModal, CModalBody} from '@coreui/react'
@@ -7,6 +8,7 @@ import {CSmartTable} from '../../components/custom/smart-table/CSmartTable'
 import * as S from './Banner.styled'
 import {IParams} from '../projectManagement/projectDetail'
 import {CSmartPagination} from '../../components/custom/pagination/CSmartPagination'
+import BannerModal from './BannserModal'
 
 export const ITEMS_PER_PAGE = 10
 
@@ -50,11 +52,41 @@ function Banner() {
   const [filter, setFilter] = useState<IParams>({page: 1, size: ITEMS_PER_PAGE})
   const [pageNum, setPageNum] = useState(1)
   const [showModal, setShowModal] = useState(false)
+  const [showImageModal, setImageModal] = useState(false)
   const [selectedImage, setSelectedImage] = useState('')
+  const [selectedBannerId, setSelectedBannerId] = useState<number>(0)
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [bannerInfo, setBannerInfo] = useState<IBannerItem>({
+    name: '',
+    bannerId: 0,
+    bannerImg: '',
+    bannerName: '',
+    bannerType: '',
+    contentsUrl: '',
+    display: true,
+    endDate: '',
+    startDate: '',
+  })
+  const handleShowModal = () => {
+    setIsEditMode(false)
+    setShowModal(true)
+    setSelectedBannerId(0)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
 
   const handleImageClick = (imageUrl: string) => {
     setSelectedImage(imageUrl)
+    setImageModal(true)
+  }
+
+  const handleEdit = (item: IBannerItem) => {
+    setIsEditMode(true)
     setShowModal(true)
+    setBannerInfo(item)
+    setSelectedBannerId(item.bannerId)
   }
 
   useEffect(() => {
@@ -70,6 +102,15 @@ function Banner() {
 
     fetchData()
   }, [])
+
+  useEffect(() => {
+    // Fetch data based on selectedBannerId when it changes
+    if (selectedBannerId !== undefined && selectedBannerId !== 0) {
+      // Fetch data based on selectedBannerId (e.g., fetch from API)
+      // Example: fetchData(selectedBannerId);
+    }
+  }, [selectedBannerId])
+
   const getBannerListApi = async ({page, size}: IParams) => {
     try {
       const response = await getBannerList<IBannerListResponse>(size, page - 1)
@@ -83,13 +124,13 @@ function Banner() {
     try {
       if (bannerId === undefined) {
         alert('삭제할 배너가 없습니다.')
-        return // 함수 실행 중지
+        return // Stop function execution
       }
-      const response: any = await deleteBanner(bannerId) // 동적으로 받은 bannerId 사용
+      const response: any = await deleteBanner(bannerId)
       alert('배너가 삭제 되었습니다.')
       window.location.reload()
     } catch (error) {
-      // 오류 응답이 있는지 확인
+      // Check if there is an error response
       if (error.response && error.response.data) {
         alert(error.response.data.message)
       } else {
@@ -107,15 +148,17 @@ function Banner() {
     else if (size > 1000) return 1000
     return size
   }
+
   return (
     <S.Wrap>
-      <S.Header>
-        <CButton component='a' href='/banner/new' disabled={bannerList && bannerList.length > 9 ? true : false}>
-          배너 추가하기
-        </CButton>
-      </S.Header>
       <CContainer>
         <CCol>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px'}}>
+            <h3>배너 리스트</h3>
+            <CButton component='a' color={'dark'} onClick={handleShowModal}>
+              배너 추가하기
+            </CButton>
+          </div>
           <CSmartTable
             columns={columns}
             itemsPerPage={ITEMS_PER_PAGE}
@@ -138,21 +181,13 @@ function Banner() {
                 )
               },
               setting: (item: IBannerItem) => {
-                // 수정과 삭제 기능을 위한 핸들러 (여기서는 예시로 빈 함수를 사용)
-                const handleEdit = () => {
-                  console.log('수정:', item)
-                  // 수정 로직 구현
-                }
                 const handleDelete = () => {
                   deleteBannerApi(item.bannerId)
-                  console.log('삭제:', item.bannerId)
-                  console.log('삭제:', item)
-                  // 삭제 로직 구
                 }
 
                 return (
                   <td style={{textAlign: 'center'}}>
-                    <CButton color='dark' size='sm' onClick={handleEdit}>
+                    <CButton color='dark' size='sm' onClick={() => handleEdit(item)}>
                       수정
                     </CButton>{' '}
                     <CButton color='dark' size='sm' onClick={handleDelete}>
@@ -171,8 +206,8 @@ function Banner() {
                 )
               },
               date: (item: IBannerItem) => {
-                const startDate = item.startDate // 가정: startDate는 item 객체의 속성
-                const endDate = item.endDate // 가정: endDate는 item 객체의 속성
+                const startDate = item.startDate
+                const endDate = item.endDate
                 return (
                   <td>
                     {startDate} ~ {endDate}
@@ -181,7 +216,7 @@ function Banner() {
               },
             }}
           />
-          <CModal visible={showModal} onClose={() => setShowModal(false)} size='lg'>
+          <CModal visible={showImageModal} onClose={() => setImageModal(false)} size='lg'>
             <CModalBody>
               <CImage src={selectedImage} style={{width: '100%'}} />
             </CModalBody>
@@ -199,6 +234,16 @@ function Banner() {
           ></CSmartPagination>
         </CCol>
       </CContainer>
+      {showModal && (
+        <BannerModal
+          showModal={showModal}
+          onClose={handleCloseModal}
+          title={'배너 추가하기'}
+          bannerId={selectedBannerId}
+          isEditMode={isEditMode}
+          item={bannerInfo}
+        />
+      )}
     </S.Wrap>
   )
 }

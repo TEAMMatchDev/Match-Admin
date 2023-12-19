@@ -1,5 +1,5 @@
 export interface IBannerItem {
-  bannerId?: number
+  bannerId: number
   bannerImg: string
   name: string
   bannerType: string

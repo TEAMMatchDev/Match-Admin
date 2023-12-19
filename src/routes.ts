@@ -16,8 +16,6 @@ const ReservationDetail = React.lazy(() => import('./pages/reservation/Reservati
 const Space = React.lazy(() => import('./pages/space/Space'))
 const Banner = React.lazy(() => import('./pages/banner/Banner'))
 const BannerDetail = React.lazy(() => import('./pages/bannerDetail/BannerDetail'))
-const Exhibition = React.lazy(() => import('./pages/exhibition/Exhibition'))
-const ExhibitionDetail = React.lazy(() => import('./pages/exhibitionDetail/ExhibitionDetail'))
 const Recommend = React.lazy(() => import('./pages/recommend/Recommend'))
 const Keyword = React.lazy(() => import('./pages/keyword/Keyword'))
 const DonationTemporaryManagementPost = React.lazy(() => import('./pages/donationTemporary/donationPost'))
@@ -39,9 +37,6 @@ const routes = [
   {path: '/banner', name: 'Banner', component: Banner},
   {path: '/banner/new', name: 'BannerDetail', component: BannerDetail, props: {isNew: true}},
   {path: '/banner/:id', name: 'BannerDetail', component: BannerDetail, props: {isNew: false}},
-  {path: '/exhibition', name: 'Exhibition', component: Exhibition},
-  {path: '/exhibition/new', name: 'ExhibitionDetail', component: ExhibitionDetail, props: {isNew: true}},
-  {path: '/exhibition/:id', name: 'ExhibitionDetail', component: ExhibitionDetail, props: {isNew: false}},
   {path: '/recommend', name: 'recommend', component: Recommend},
   {path: '/keyword', name: 'keyword', component: Keyword},
 ]
