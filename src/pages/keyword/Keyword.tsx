@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {ListContainerStyle} from '../recommend/RecommendStyle'
 import KeywordList from './components/keywordList'
 import axios from 'axios'
 
@@ -20,11 +19,6 @@ const Keyword = () => {
     getKeywords()
     console.log(onEditFlag, keywords)
   }, [onEditFlag])
-  return (
-    <ListContainerStyle>
-      <KeywordList keywords={keywords} setOnEditFlag={setOnEditFlag} onEditFlag={onEditFlag} />
-    </ListContainerStyle>
-  )
 }
 
 export default Keyword

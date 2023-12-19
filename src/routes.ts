@@ -11,13 +11,9 @@ const DonationManagementDetail = React.lazy(() => import('./pages/donationDetail
 const ProjectUpload = React.lazy(() => import('./pages/projectUpload/ProjectUpload'))
 const Project = React.lazy(() => import('./pages/projectManagement/index'))
 const ProjectDetail = React.lazy(() => import('./pages/projectManagement/projectDetail'))
-const Reservation = React.lazy(() => import('./pages/reservation/Reservation'))
-const ReservationDetail = React.lazy(() => import('./pages/reservation/ReservationDetail'))
 const Space = React.lazy(() => import('./pages/space/Space'))
 const Banner = React.lazy(() => import('./pages/banner/Banner'))
 const BannerDetail = React.lazy(() => import('./pages/bannerDetail/BannerDetail'))
-const Recommend = React.lazy(() => import('./pages/recommend/Recommend'))
-const Keyword = React.lazy(() => import('./pages/keyword/Keyword'))
 const DonationTemporaryManagementPost = React.lazy(() => import('./pages/donationTemporary/donationPost'))
 const routes = [
   {path: '/', name: 'Home'},
@@ -31,14 +27,10 @@ const routes = [
   {path: '/donation-temporary', name: 'DonationManagement', component: DonationManagement},
   {path: '/donation-temporary/:id', name: 'DonationManagement', component: DonationTemporaryManagemnetDetail},
   {path: '/donation-temporary/registration/:id', name: DonationManagement, component: DonationTemporaryManagementPost},
-  {path: '/reservation', name: 'Reservation', component: Reservation},
-  {path: '/reservation/:id', name: 'Reservation', component: ReservationDetail},
   {path: '/space', name: 'Space', component: Space},
   {path: '/banner', name: 'Banner', component: Banner},
   {path: '/banner/new', name: 'BannerDetail', component: BannerDetail, props: {isNew: true}},
   {path: '/banner/:id', name: 'BannerDetail', component: BannerDetail, props: {isNew: false}},
-  {path: '/recommend', name: 'recommend', component: Recommend},
-  {path: '/keyword', name: 'keyword', component: Keyword},
 ]
 
 export default routes
