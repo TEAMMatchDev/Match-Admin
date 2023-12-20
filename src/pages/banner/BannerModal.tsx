@@ -4,7 +4,7 @@ import {CModal, CModalBody, CModalFooter, CModalHeader, CButton, CImage} from '@
 import {IBannerItem} from '../../models/Banner'
 import * as S from './Banner.styled'
 import {createBanner} from '../../apis/banner'
-import ImagePresent from '../projectUpload/components/Image/ImagePresent'
+import ImagePresent from './components/ImagePresent'
 
 interface BannerModalProps {
   showModal: boolean
@@ -16,7 +16,7 @@ interface BannerModalProps {
   // Add other necessary props
 }
 const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, bannerId, isEditMode, item}) => {
-  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imageFile, setImageFile] = useState<File | string | null>(null)
   const [bannerInfo, setBannerInfo] = useState<IBannerItem>({
     name: '',
     bannerId: 0,
@@ -38,16 +38,17 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
 
   const handleAddOrUpdateBanner = async () => {
     if (isEditMode) {
+      console.log('editMode')
       // Add logic to handle updating banner
     } else {
       const formData = new FormData()
-      const {name, startDate, endDate, contentsUrl, ...res} = bannerInfo
+      console.log(bannerInfo)
       formData.append(
         'bannerUploadDto',
         new Blob(
           [
             JSON.stringify({
-              ...res,
+              ...bannerInfo,
             }),
           ],
           {
@@ -56,6 +57,8 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
         ),
       )
       formData.append('bannerImage', imageFile as File)
+
+      console.log('formData' + formData)
 
       await createBanner(formData)
       // Add logic to handle creating banner
@@ -63,32 +66,6 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
     // Close the modal
     onClose()
   }
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (!isEditMode) {
-      const formData = new FormData()
-      const {name, startDate, endDate, contentsUrl, ...res} = bannerInfo
-      formData.append(
-        'bannerUploadDto',
-        new Blob(
-          [
-            JSON.stringify({
-              ...res,
-            }),
-          ],
-          {
-            type: 'application/json',
-          },
-        ),
-      )
-      formData.append('bannerImage', imageFile as File)
-
-      await createBanner(formData)
-    } else {
-    }
-  }
-
   const handleImageChange = () => {
     onClose()
   }
@@ -123,7 +100,8 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
               style={{width: '100%', minHeight: '20px'}}
             />
           </S.InputItemWrap>
-          <div style={{display: 'flex', alignItems: 'baseline'}}>
+          <S.InputItemWrap>
+            <label>노출 기간</label>
             <S.InputDateWrap>
               <input
                 type='datetime-local'
@@ -133,7 +111,8 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
                 placeholder='배너 시작일을 입력해주세요.'
               />
             </S.InputDateWrap>
-            <S.InputDateWrap>
+            <span style={{margin: '0 5px', textAlign: 'center'}}>~</span>
+            <S.InputEndDateWrap>
               <input
                 type='datetime-local'
                 name='endDate'
@@ -141,11 +120,27 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
                 onChange={handleInputChange}
                 placeholder='배너 종료일을 입력해주세요.'
               />
-            </S.InputDateWrap>
-          </div>
+            </S.InputEndDateWrap>
+          </S.InputItemWrap>
           <S.InputItemWrap>
             <label>배너 이미지</label>
-            <ImagePresent presentFile={imageFile || null} setPresentFile={setImageFile} title={'배너 이미지'} />
+            {isEditMode && bannerInfo.bannerImg && (
+              <ImagePresent
+                presentFile={bannerInfo.bannerImg || null}
+                title={'배너 이미지'}
+                setPresentFile={setImageFile}
+                isEditMode={isEditMode}
+              />
+            )}
+            {/* Conditionally render ImagePresent based on selected image during add mode */}
+            {!isEditMode && (
+              <ImagePresent
+                presentFile={imageFile || null}
+                setPresentFile={setImageFile}
+                title={'배너 이미지'}
+                isEditMode={isEditMode}
+              />
+            )}
           </S.InputItemWrap>
           <S.InputItemWrap>
             <label>랜딩 페이지</label>
@@ -160,8 +155,8 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
         </div>
       </S.ModalWrap>
       <CModalFooter>
-        <CButton color='primary' onClick={handleAddOrUpdateBanner}>
-          {isEditMode ? '배너 수정하기' : '배너 추가하기'}
+        <CButton color='dark' onClick={handleAddOrUpdateBanner}>
+          {isEditMode ? '수정 저장하기' : '배너 추가하기'}
         </CButton>{' '}
         <CButton color='secondary' onClick={onClose}>
           Cancel

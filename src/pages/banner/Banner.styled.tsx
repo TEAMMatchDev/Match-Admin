@@ -87,15 +87,12 @@ export const InputItemWrap = styled.div`
   }
 `
 export const InputDateWrap = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
-  align-items: flex-start;
-  column-gap: 5px;
+  flex-direction: column; /* Adjusted to column layout */
+  align-items: center;
+  justify-content: center; /* Center the items horizontally */
   margin-bottom: 10px;
-
-  &.display {
-    align-items: center;
-  }
 
   label {
     text-align: left;
@@ -118,7 +115,42 @@ export const InputDateWrap = styled.div`
     &::placeholder {
       font-size: 12px;
       color: grey;
-      vertical-align: center;
+      vertical-align: middle;
+    }
+  }
+`
+
+export const InputEndDateWrap = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column; /* Adjusted to column layout */
+  align-items: center;
+  justify-content: center; /* Center the items horizontally */
+  column-gap: 5px;
+  margin-bottom: 10px;
+
+  label {
+    text-align: left;
+    color: #202020;
+    font-size: 15px;
+    font-weight: 600;
+    min-width: 70px;
+  }
+
+  input {
+    border-radius: 10px;
+    border: 1px solid #bbb7b7;
+    background-color: transparent;
+    padding: 5px 12px;
+    width: 90%;
+    outline: none;
+    color: #202020;
+    font-size: 14px;
+
+    &::placeholder {
+      font-size: 12px;
+      color: grey;
+      vertical-align: middle;
     }
   }
 `

@@ -8,7 +8,7 @@ import {CSmartTable} from '../../components/custom/smart-table/CSmartTable'
 import * as S from './Banner.styled'
 import {IParams} from '../projectManagement/projectDetail'
 import {CSmartPagination} from '../../components/custom/pagination/CSmartPagination'
-import BannerModal from './BannserModal'
+import BannerModal from './BannerModal'
 
 export const ITEMS_PER_PAGE = 10
 
