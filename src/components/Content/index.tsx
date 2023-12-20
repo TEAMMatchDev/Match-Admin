@@ -19,11 +19,7 @@ const Content = () => {
             const LazyComponent = route.component as LazyExoticComponent<React.ComponentType<any>>
             return (
               route.component && (
-                <Route
-                  key={idx}
-                  path={route.path}
-                  element={route.props ? <LazyComponent {...route.props} /> : <LazyComponent />}
-                />
+                <Route key={idx} path={route.path} element={route ? <LazyComponent {...route} /> : <LazyComponent />} />
               )
             )
           })}

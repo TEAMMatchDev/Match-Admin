@@ -15,7 +15,6 @@ const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
 // Pages
 const Login = React.lazy(() => import('./pages/login/Login'))
-const Register = React.lazy(() => import('./pages/register/Register'))
 const Page404 = React.lazy(() => import('./pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./pages/page500/Page500'))
 
@@ -25,7 +24,6 @@ ReactDOM.render(
       <Suspense fallback={loading}>
         <Routes>
           <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
           <Route path='/404' element={<Page404 />} />
           <Route path='/500' element={<Page500 />} />
           <Route path='/*' element={<DefaultLayout />} />
