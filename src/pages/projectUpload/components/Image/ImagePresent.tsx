@@ -7,16 +7,19 @@ import PresentImageModal from './PresentImageModal'
 interface IProps {
   presentFile: File | null
   setPresentFile: Dispatch<SetStateAction<File | null>>
+  title: string
 }
 
-function ImagePresent({presentFile, setPresentFile}: IProps) {
+function ImagePresent({presentFile, setPresentFile, title}: IProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isEditImg, setIsEditImg] = useState(false)
   const openModal = () => setIsModalOpen(true)
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       // Update the imageFile state with the selected image file (replace the previous one)
       setPresentFile(e.target.files[0])
+      setIsEditImg(true)
     }
   }
 
@@ -30,7 +33,7 @@ function ImagePresent({presentFile, setPresentFile}: IProps) {
         </CCarousel>
       ) : (
         <S.ImagePlaceholder>
-          <h2>썸네일 사진 첨부하기</h2>
+          <h2>{title}</h2>
           <ul>
             <li>1장</li>
             <li>jpeg / jpg / png / svg 가능</li>
@@ -39,9 +42,11 @@ function ImagePresent({presentFile, setPresentFile}: IProps) {
         </S.ImagePlaceholder>
       )}
       <S.ButtonWrap>
-        {/* Use an input element to allow users to select an image */}
-        <input type='file' accept='image/*' onChange={handleImageChange} />
-        <CButton onClick={openModal}>Edit Image</CButton>
+        {isEditImg ? (
+          <CButton onClick={openModal}>이미지 편집</CButton>
+        ) : (
+          <CButton onClick={openModal}>이미지 추가</CButton>
+        )}
       </S.ButtonWrap>
       <PresentImageModal
         isModalOpen={isModalOpen}

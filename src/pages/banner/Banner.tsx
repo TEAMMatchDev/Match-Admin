@@ -26,6 +26,12 @@ const columns = [
     _props: {className: 'fw-semibold'},
   },
   {
+    label: '랜딩 페이지',
+    key: 'contentsUrl',
+    _style: {width: '30%'},
+    _props: {className: 'fw-semibold'},
+  },
+  {
     label: '이름',
     key: 'name',
     _style: {width: '5%'},
@@ -193,6 +199,15 @@ function Banner() {
                     <CButton color='dark' size='sm' onClick={handleDelete}>
                       삭제
                     </CButton>
+                  </td>
+                )
+              },
+              contentsUrl: (item: IBannerItem) => {
+                return (
+                  <td>
+                    <a href={item.contentsUrl} onClick={handleLinkClick}>
+                      {item.contentsUrl}
+                    </a>
                   </td>
                 )
               },

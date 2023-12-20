@@ -36,6 +36,20 @@ export const ContentWrap = styled.div`
   }
 `
 
+export const ModalWrap = styled.div`
+  padding: 50px;
+  background-color: white;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  column-gap: 60px;
+  row-gap: 10px;
+
+  > div {
+    width: 100%;
+  }
+`
+
 export const InputItemWrap = styled.div`
   width: 100%;
   display: flex;
@@ -61,6 +75,42 @@ export const InputItemWrap = styled.div`
     background-color: transparent;
     padding: 5px 12px;
     width: 100%;
+    outline: none;
+    color: #202020;
+    font-size: 14px;
+
+    &::placeholder {
+      font-size: 12px;
+      color: grey;
+      vertical-align: center;
+    }
+  }
+`
+export const InputDateWrap = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  column-gap: 5px;
+  margin-bottom: 10px;
+
+  &.display {
+    align-items: center;
+  }
+
+  label {
+    text-align: left;
+    color: #202020;
+    font-size: 15px;
+    font-weight: 600;
+    min-width: 70px;
+  }
+
+  input {
+    border-radius: 10px;
+    border: 1px solid #bbb7b7;
+    background-color: transparent;
+    padding: 5px 12px;
+    width: 90%;
     outline: none;
     color: #202020;
     font-size: 14px;

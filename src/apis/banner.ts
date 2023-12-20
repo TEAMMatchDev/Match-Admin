@@ -18,18 +18,18 @@ export const getBannerImage = async (fileString: string): Promise<IImageResponse
   return request.get<IImageResponse>(url)
 }
 
-export const createBanner = async (data: FormData): Promise<IBannerCreateResponse> => {
+export const createBanner = async <T>(data: FormData): Promise<T> => {
   const url = '/admin/banners'
-  return request.post<IBannerCreateResponse>(url, data, {
+  return request.post<T>(url, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   })
 }
 
-export const updateBanner = async (bannerIdx: number, data: FormData): Promise<number> => {
-  const url = `/admin/banners/${bannerIdx}`
-  return request.patch<number>(url, data, {
+export const updateBanner = async <T>(bannerId: number, data: FormData): Promise<T> => {
+  const url = `/admin/banners/${bannerId}`
+  return request.patch<T>(url, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

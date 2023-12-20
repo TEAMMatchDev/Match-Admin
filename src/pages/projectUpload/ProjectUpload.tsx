@@ -102,6 +102,7 @@ function ProjectUpload() {
             <ImagePresent
               presentFile={presentFile || null} // Provide a default value of null if presentFile is undefined
               setPresentFile={setPresentFile}
+              title={'썸네일 사진'}
             />
           </section>
           <section>
@@ -119,7 +120,6 @@ function ProjectUpload() {
               placeholder='프로젝트 이름을 입력해주세요'
             />
           </CInputGroup>
-
           <CInputGroup className='mb-3'>
             <CInputGroupText>사용처</CInputGroupText>
             <CFormInput
@@ -130,7 +130,6 @@ function ProjectUpload() {
               placeholder='기부금 사용처를 입력해주세요'
             />
           </CInputGroup>
-
           <CInputGroup className='mb-3'>
             <CInputGroupText>프로젝트 설명</CInputGroupText>
             <CFormInput
@@ -141,7 +140,6 @@ function ProjectUpload() {
               placeholder='프로젝트에 대한 설명을 입력해주세요'
             />
           </CInputGroup>
-
           <CInputGroup className='mb-3'>
             <CInputGroupText>검색 키워드</CInputGroupText>
             <CFormInput
