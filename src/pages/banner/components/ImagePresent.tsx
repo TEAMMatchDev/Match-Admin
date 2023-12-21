@@ -18,6 +18,7 @@ function ImagePresent({presentFile, setPresentFile, title, isEditMode}: IProps) 
   const openModal = () => {
     setIsModalOpen(true)
     setIsEditImg(true)
+    console.log('이미지 편집 하기')
   }
 
   useEffect(() => {
@@ -30,6 +31,8 @@ function ImagePresent({presentFile, setPresentFile, title, isEditMode}: IProps) 
       setPresentFile(e.target.files[0])
       setIsEditImg(true)
     }
+    setIsEditImg(true)
+    console.log('이미지 편집 하기')
   }
 
   return (
@@ -37,6 +40,12 @@ function ImagePresent({presentFile, setPresentFile, title, isEditMode}: IProps) 
       {presentFile && typeof presentFile === 'string' ? (
         <img src={presentFile} alt={`slide`} />
       ) : presentFile && typeof presentFile === 'object' ? (
+        <CCarousel indicators>
+          <CCarouselItem>
+            <img src={URL.createObjectURL(presentFile)} alt={`slide`} />
+          </CCarouselItem>
+        </CCarousel>
+      ) : presentFile && isEditImg && typeof presentFile === 'object' ? (
         <CCarousel indicators>
           <CCarouselItem>
             <img src={URL.createObjectURL(presentFile)} alt={`slide`} />
@@ -53,7 +62,7 @@ function ImagePresent({presentFile, setPresentFile, title, isEditMode}: IProps) 
         </S.ImagePlaceholder>
       )}
       <S.ButtonWrap>
-        {isEditImg ? (
+        {presentFile && (typeof presentFile === 'object' || typeof presentFile === 'string') ? (
           <CButton onClick={openModal}>이미지 편집</CButton>
         ) : (
           <label>

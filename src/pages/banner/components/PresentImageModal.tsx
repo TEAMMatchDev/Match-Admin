@@ -38,10 +38,8 @@ function ImageModal({isModalOpen, setIsModalOpen, imageFile, setImageFile, isEdi
   }
 
   const handleApply = () => {
-    // 선택한 이미지 파일을 새 이미지 파일로 설정합니다.
     setImageFile(selectedImageFile)
     console.log('선택한 이미지 파일을 새 이미지 파일로 설정합니다.')
-    // 모달을 닫습니다.
     closeModal()
   }
 

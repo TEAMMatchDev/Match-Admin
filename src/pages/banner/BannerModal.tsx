@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {CModal, CModalBody, CModalFooter, CModalHeader, CButton, CImage} from '@coreui/react'
 import {IBannerItem} from '../../models/Banner'
 import * as S from './Banner.styled'
-import {createBanner} from '../../apis/banner'
+import {createBanner, updateBanner} from '../../apis/banner'
 import ImagePresent from './components/ImagePresent'
 
 interface BannerModalProps {
@@ -28,7 +28,6 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
     endDate: '',
     startDate: '',
   })
-  const [isDeleteImage, setIsDeleteImage] = useState<boolean>(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = e.target
@@ -38,8 +37,31 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
 
   const handleAddOrUpdateBanner = async () => {
     if (isEditMode) {
-      console.log('editMode')
-      // Add logic to handle updating banner
+      let isEditImage = false
+      console.log(bannerInfo)
+      const formData = new FormData()
+      if (imageFile != null) {
+        isEditImage = true
+        formData.append('bannerImage', imageFile as File)
+      }
+      formData.append(
+        'bannerPatchDto',
+        new Blob(
+          [
+            JSON.stringify({
+              ...bannerInfo,
+              editImage: isEditImage,
+              startDate: bannerInfo.startDate.replace(' ', 'T'),
+              endDate: bannerInfo.endDate.replace(' ', 'T'),
+            }),
+          ],
+          {
+            type: 'application/json',
+          },
+        ),
+      )
+      console.log(formData.get('bannerPatchDto'))
+      await updateBanner(bannerId, formData)
     } else {
       const formData = new FormData()
       console.log(bannerInfo)
@@ -61,9 +83,8 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
       console.log('formData' + formData)
 
       await createBanner(formData)
-      // Add logic to handle creating banner
     }
-    // Close the modal
+    window.location.reload()
     onClose()
   }
   const handleImageChange = () => {
@@ -73,13 +94,8 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
   useEffect(() => {
     console.log(isEditMode)
     if (isEditMode) {
-      // Load existing data (e.g., fetch from API based on bannerId)
-      // Example:
-      // const existingData = fetchData(bannerId);
-      // setBannerInfo(existingData);
       setBannerInfo(item)
       console.log('editMode')
-      console.log()
     } else {
       console.log('addMode')
     }
@@ -87,7 +103,7 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
 
   return (
     <CModal visible={showModal} onClose={onClose} size='lg'>
-      <CModalHeader closeButton> {isEditMode ? '배너 수정하기' : '배너 추가하기'} </CModalHeader>
+      <CModalHeader closeButton> {isEditMode ? '배너 수정' : '배너 추가'} </CModalHeader>
       <S.ModalWrap>
         <div>
           <S.InputItemWrap>
@@ -132,7 +148,6 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
                 isEditMode={isEditMode}
               />
             )}
-            {/* Conditionally render ImagePresent based on selected image during add mode */}
             {!isEditMode && (
               <ImagePresent
                 presentFile={imageFile || null}
@@ -156,7 +171,7 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
       </S.ModalWrap>
       <CModalFooter>
         <CButton color='dark' onClick={handleAddOrUpdateBanner}>
-          {isEditMode ? '수정 저장하기' : '배너 추가하기'}
+          {isEditMode ? '수정 저장' : '배너 추가'}
         </CButton>{' '}
         <CButton color='secondary' onClick={onClose}>
           Cancel
