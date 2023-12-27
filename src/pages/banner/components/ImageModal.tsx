@@ -4,49 +4,52 @@ import {cilX} from '@coreui/icons'
 import * as S from './ImageModal.styled'
 
 interface IProps {
-  imageFiles: File[]
-  setImageFiles: Dispatch<SetStateAction<File[]>>
+  presentFile: File | string | null
+  setPresentFile: Dispatch<SetStateAction<File | string | null>>
   isModalOpen: boolean
   setIsModalOpen: Dispatch<SetStateAction<boolean>>
+  isEditMode: boolean
 }
 
-function ImageModal({isModalOpen, setIsModalOpen, imageFiles, setImageFiles}: IProps) {
-  const [selectedImageFiles, setSelectedImageFiles] = useState<File[]>([])
-
-  useEffect(() => {
-    setSelectedImageFiles(imageFiles)
-  }, [imageFiles])
-
+function ImageModal({isModalOpen, setIsModalOpen, presentFile, setPresentFile, isEditMode}: IProps) {
+  const [selectedImageFile, setSelectedImageFile] = useState<File | string | null>(presentFile)
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nowSelectImageList = e.target.files
-
-    if (!nowSelectImageList || selectedImageFiles.length + nowSelectImageList.length > 10) return
-    for (let i = 0; i < nowSelectImageList.length; i += 1) {
-      const MAX_FILE_SIZE = 5000000 // 5MB
-      if (nowSelectImageList[i].size > MAX_FILE_SIZE) {
-        continue
-      }
-
-      setSelectedImageFiles(prev => {
-        return [...prev, nowSelectImageList[i]]
-      })
+    const selectedFile = e.target.files && e.target.files[0]
+    if (!selectedFile) {
+      alert('선택된 파일이 없습니다.')
+      return
     }
-  }
-
-  const deleteImage = (targetImageIdx: number) => {
-    const filteredImageList = selectedImageFiles.filter((_imageFile, idx) => idx !== targetImageIdx)
-    setSelectedImageFiles(filteredImageList)
+    const MAX_FILE_SIZE = 5000000 // 5MB
+    if (selectedFile.size > MAX_FILE_SIZE) {
+      alert('선택한 이미지가 너무 큽니다.')
+      return
+    }
+    setSelectedImageFile(selectedFile)
   }
 
   const handleApply = () => {
-    setImageFiles(selectedImageFiles)
-    setSelectedImageFiles(selectedImageFiles)
-    closeModal()
+    console.log('선택한 이미지 파일을 새 이미지 파일로 설정합니다.')
+    if (selectedImageFile instanceof File) {
+      console.log('변경')
+      setPresentFile(selectedImageFile)
+    } else if (typeof selectedImageFile === 'string') {
+      console.log('URL 변경')
+      setPresentFile(selectedImageFile)
+    } else {
+      setPresentFile(null)
+    }
+    // 이미지 모달이 완전히 종료된 후에 setPresentFile이 실행되도록 setTimeout 사용
+    setIsModalOpen(false)
   }
 
+  useEffect(() => {
+    setPresentFile(presentFile) // 이 부분 추가
+    setTimeout(() => {
+      console.log('PresentFile Edit Mode:', presentFile)
+    }, 0)
+  }, [setPresentFile, presentFile])
   const handleCancel = () => {
-    setImageFiles(imageFiles)
-    setSelectedImageFiles(imageFiles)
+    setSelectedImageFile(presentFile)
     closeModal()
   }
 
@@ -56,24 +59,29 @@ function ImageModal({isModalOpen, setIsModalOpen, imageFiles, setImageFiles}: IP
 
   return (
     <S.Modal visible={isModalOpen} onClose={closeModal}>
-      <h2>Images</h2>
-      <S.ImageWrap>
-        {selectedImageFiles.map((imageFile, idx) => (
-          <S.ImageItem key={idx}>
-            <img src={URL.createObjectURL(imageFile)} alt='space' />
-            <button onClick={() => deleteImage(idx)}>
-              <CIcon icon={cilX} size='sm' />
-            </button>
+      <h2>이미지</h2>
+      {selectedImageFile ? (
+        <S.ImageWrap>
+          <S.ImageItem>
+            {typeof selectedImageFile === 'string' ? (
+              <img src={selectedImageFile} alt='banner' />
+            ) : (
+              <>
+                <img src={URL.createObjectURL(selectedImageFile)} alt='banner' />
+              </>
+            )}
           </S.ImageItem>
-        ))}
-      </S.ImageWrap>
+        </S.ImageWrap>
+      ) : (
+        <p>선택된 이미지가 없습니다.</p>
+      )}
       <S.Controllers>
         <S.Button as='label' htmlFor='myFile' isLabel>
-          이미지 추가하기
-          <input onChange={addImage} type='file' id='myFile' name='filename' multiple accept='.jpg,.jpeg,.png,.svg' />
+          이미지 선택
+          <input onChange={addImage} type='file' id='myFile' name='filename' accept='.jpg,.jpeg,.png,.svg' />
         </S.Button>
         <S.ButtonsWrap>
-          <S.Button onClick={handleApply} disabled={selectedImageFiles.length < 1}>
+          <S.Button onClick={handleApply} disabled={!selectedImageFile}>
             적용
           </S.Button>
           <S.Button onClick={handleCancel}>취소</S.Button>

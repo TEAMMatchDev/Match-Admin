@@ -1,9 +1,8 @@
-// ImagePresent.tsx
-
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react'
 import {CButton, CCarousel, CCarouselItem} from '@coreui/react'
 import * as S from '../../projectUpload/components/Image/ImageCarousel.styled'
-import PresentImageModal from './PresentImageModal'
+import PresentImageModal from './ImageModal'
+import ImageModal from './ImageModal'
 
 interface IProps {
   presentFile: File | string | null
@@ -14,25 +13,24 @@ interface IProps {
 
 function ImagePresent({presentFile, setPresentFile, title, isEditMode}: IProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isEditImg, setIsEditImg] = useState(false)
   const openModal = () => {
     setIsModalOpen(true)
-    setIsEditImg(true)
-    console.log('이미지 편집 하기')
   }
-
   useEffect(() => {
-    setIsEditImg(false) // 이미지 편집 모드를 초기화합니다.
+    setIsModalOpen(false)
   }, [presentFile])
 
+  useEffect(() => {
+    setPresentFile(presentFile)
+    setTimeout(() => {
+      console.log('PresentFile Edit Mode:', presentFile)
+    }, 0)
+  }, [setPresentFile, presentFile])
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      console.log('Selected image:', e.target.files[0])
       setPresentFile(e.target.files[0])
-      setIsEditImg(true)
+      setIsModalOpen(true)
     }
-    setIsEditImg(true)
-    console.log('이미지 편집 하기')
   }
 
   return (
@@ -42,13 +40,7 @@ function ImagePresent({presentFile, setPresentFile, title, isEditMode}: IProps) 
       ) : presentFile && typeof presentFile === 'object' ? (
         <CCarousel indicators>
           <CCarouselItem>
-            <img src={URL.createObjectURL(presentFile)} alt={`slide`} />
-          </CCarouselItem>
-        </CCarousel>
-      ) : presentFile && isEditImg && typeof presentFile === 'object' ? (
-        <CCarousel indicators>
-          <CCarouselItem>
-            <img src={URL.createObjectURL(presentFile)} alt={`slide`} />
+            <img src={URL.createObjectURL(presentFile)} alt={`banner`} />
           </CCarouselItem>
         </CCarousel>
       ) : (
@@ -76,11 +68,11 @@ function ImagePresent({presentFile, setPresentFile, title, isEditMode}: IProps) 
           </label>
         )}
       </S.ButtonWrap>
-      <PresentImageModal
+      <ImageModal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
-        imageFile={presentFile}
-        setImageFile={setPresentFile}
+        presentFile={presentFile}
+        setPresentFile={setPresentFile}
         isEditMode={isEditMode}
       />
     </S.CarouselWrap>

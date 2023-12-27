@@ -28,7 +28,7 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
     endDate: '',
     startDate: '',
   })
-
+  const [isEditImage, setIsEditImage] = useState(false)
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = e.target
     console.log(`Updating state for ${name}: ${value}`)
@@ -37,20 +37,19 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
 
   const handleAddOrUpdateBanner = async () => {
     if (isEditMode) {
-      let isEditImage = false
-      console.log(bannerInfo)
       const formData = new FormData()
       if (imageFile != null) {
-        isEditImage = true
+        setIsEditImage(true)
         formData.append('bannerImage', imageFile as File)
       }
+      const edit = isEditMode
       formData.append(
         'bannerPatchDto',
         new Blob(
           [
             JSON.stringify({
               ...bannerInfo,
-              editImage: isEditImage,
+              editImage: edit,
               startDate: bannerInfo.startDate.replace(' ', 'T'),
               endDate: bannerInfo.endDate.replace(' ', 'T'),
             }),
@@ -85,9 +84,6 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
       await createBanner(formData)
     }
     window.location.reload()
-    onClose()
-  }
-  const handleImageChange = () => {
     onClose()
   }
 
@@ -140,22 +136,12 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
           </S.InputItemWrap>
           <S.InputItemWrap>
             <label>배너 이미지</label>
-            {isEditMode && bannerInfo.bannerImg && (
-              <ImagePresent
-                presentFile={bannerInfo.bannerImg || null}
-                title={'배너 이미지'}
-                setPresentFile={setImageFile}
-                isEditMode={isEditMode}
-              />
-            )}
-            {!isEditMode && (
-              <ImagePresent
-                presentFile={imageFile || null}
-                setPresentFile={setImageFile}
-                title={'배너 이미지'}
-                isEditMode={isEditMode}
-              />
-            )}
+            <ImagePresent
+              presentFile={isEditMode ? imageFile || bannerInfo.bannerImg : imageFile}
+              setPresentFile={setImageFile}
+              title={'배너 이미지'}
+              isEditMode={isEditMode}
+            />
           </S.InputItemWrap>
           <S.InputItemWrap>
             <label>랜딩 페이지</label>

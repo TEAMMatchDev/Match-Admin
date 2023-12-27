@@ -40,7 +40,7 @@ interface CustomInstance extends AxiosInstance {
 
 const request: CustomInstance = axios.create({
   baseURL: process.env.REACT_APP_API,
-  timeout: 2500,
+  timeout: 3000,
   headers: {
     accept: 'application/json',
     'X-AUTH-TOKEN': `${window.localStorage.getItem(JWT_KEY)}`,

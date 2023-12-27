@@ -20,6 +20,10 @@ export const CarouselWrap = styled.div`
     width: 100%;
     object-fit: cover;
   }
+
+  .carousel-item-start {
+    transform: translateX(0); /* 혹은 다른 값을 시도해보세요. */
+  }
 `
 
 export const ImagePlaceholder = styled.div`
