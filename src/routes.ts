@@ -14,6 +14,7 @@ const ProjectDetail = React.lazy(() => import('./pages/projectManagement/project
 const Space = React.lazy(() => import('./pages/space/Space'))
 const Banner = React.lazy(() => import('./pages/banner/Banner'))
 const DonationTemporaryManagementPost = React.lazy(() => import('./pages/donationTemporary/donationPost'))
+const Event = React.lazy(() => import('./pages/event/Event'))
 const routes = [
   {path: '/', name: 'Home'},
   {path: '/dashboard', name: 'Dashboard', component: Dashboard},
@@ -28,6 +29,7 @@ const routes = [
   {path: '/donation-temporary/registration/:id', name: DonationManagement, component: DonationTemporaryManagementPost},
   {path: '/space', name: 'Space', component: Space},
   {path: '/banner', name: 'Banner', component: Banner},
+  {path: '/event', name: 'Event', component: Event},
 ]
 
 export default routes
