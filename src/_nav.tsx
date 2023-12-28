@@ -61,6 +61,12 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: '검색 키워드 관리',
+    icon: <CIcon icon={cilBook} customClassName='nav-icon' />,
+    to: '/keyword',
+  },
+  {
+    component: CNavItem,
     name: '임시 기부 관리',
     icon: <CIcon icon={cilMoney} customClassName='nav-icon' />,
     to: '/donation-temporary',

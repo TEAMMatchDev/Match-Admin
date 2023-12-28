@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {CModal, CModalBody, CModalFooter, CModalHeader, CButton, CImage, CFormSelect} from '@coreui/react'
 import {IBannerItem} from '../../models/Banner'
-import * as S from './Event.styled'
+import * as S from './Notice.styled'
 import {createBanner, updateBanner} from '../../apis/banner'
 import {ContentsType, IEventContent, IEventItem} from '../../models/Event'
 import ImagePresent from './components/ImagePresent'
@@ -17,7 +17,7 @@ interface BannerModalProps {
   item: IEventItem
   // Add other necessary props
 }
-const EventModal: React.FC<BannerModalProps> = ({showModal, onClose, title, eventId, isEditMode, item}) => {
+const NoticeModal: React.FC<BannerModalProps> = ({showModal, onClose, title, eventId, isEditMode, item}) => {
   const [imageFile, setImageFile] = useState<File | string | null>(null)
   const [thumbnail, setThumbnail] = useState<File | string | null>(null)
   const [eventInfo, setEventInfo] = useState<IEventItem>({
@@ -274,4 +274,4 @@ const EventModal: React.FC<BannerModalProps> = ({showModal, onClose, title, even
   )
 }
 
-export default EventModal
+export default NoticeModal

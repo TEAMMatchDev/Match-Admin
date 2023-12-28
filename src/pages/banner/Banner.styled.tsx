@@ -85,6 +85,24 @@ export const InputItemWrap = styled.div`
       vertical-align: center;
     }
   }
+
+  textarea {
+    border-radius: 10px;
+    border: 1px solid #bbb7b7;
+    background-color: transparent;
+    padding: 5px 12px;
+    width: 100%;
+    outline: none;
+    color: #202020;
+    font-size: 14px;
+    resize: none;
+
+    &::placeholder {
+      font-size: 12px;
+      color: grey;
+      vertical-align: center;
+    }
+  }
 `
 export const InputDateWrap = styled.div`
   width: 80%;

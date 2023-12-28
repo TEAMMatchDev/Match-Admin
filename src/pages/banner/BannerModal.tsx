@@ -156,7 +156,11 @@ const BannerModal: React.FC<BannerModalProps> = ({showModal, onClose, title, ban
         </div>
       </S.ModalWrap>
       <CModalFooter>
-        <CButton color='dark' onClick={handleAddOrUpdateBanner}>
+        <CButton
+          color='dark'
+          onClick={handleAddOrUpdateBanner}
+          disabled={bannerInfo.name === '' || bannerInfo.startDate === '' || bannerInfo.endDate === ''}
+        >
           {isEditMode ? '수정 저장' : '배너 추가'}
         </CButton>{' '}
         <CButton color='secondary' onClick={onClose}>

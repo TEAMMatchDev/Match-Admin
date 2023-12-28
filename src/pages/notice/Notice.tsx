@@ -3,10 +3,10 @@ import React, {useEffect, useState} from 'react'
 import {useNavigate, useSearchParams} from 'react-router-dom'
 import {CButton, CCol, CContainer, CImage, CModal, CModalBody} from '@coreui/react'
 import {CSmartTable} from '../../components/custom/smart-table/CSmartTable'
-import * as S from './Event.styled'
+import * as S from './Notice.styled'
 import {IParams} from '../projectManagement/projectDetail'
 import {CSmartPagination} from '../../components/custom/pagination/CSmartPagination'
-import EventModal from './EventModal'
+import NoticeModal from './NoticeModal'
 import {IEventContent, IEventItem, IEventListResponse} from '../../models/Event'
 import {deleteEvent, getEventList} from '../../apis/event'
 
@@ -51,7 +51,7 @@ const columns = [
   },
 ]
 
-function Event() {
+function Notice() {
   const navigate = useNavigate()
   const [eventList, setEventList] = useState<IEventItem[]>()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -227,7 +227,7 @@ function Event() {
         </CCol>
       </CContainer>
       {showModal && (
-        <EventModal
+        <NoticeModal
           showModal={showModal}
           onClose={handleCloseModal}
           title={'이벤트 추가'}
@@ -240,4 +240,4 @@ function Event() {
   )
 }
 
-export default Event
+export default Notice

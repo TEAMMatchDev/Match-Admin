@@ -2,6 +2,7 @@ export interface IEventItem {
   eventId: number
   thumbnail: string
   title: string
+  eventType: string
   smallTitle: string
   startDate: string
   endDate: string

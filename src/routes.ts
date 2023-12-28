@@ -1,4 +1,6 @@
 import React from 'react'
+import Keyword from './pages/keyword/Keyword'
+import Notice from './pages/notice/Notice'
 
 const Dashboard = React.lazy(() => import('./pages/dashboard/Dashboard'))
 const UserManagement = React.lazy(() => import('./pages/userManagement'))
@@ -30,6 +32,8 @@ const routes = [
   {path: '/space', name: 'Space', component: Space},
   {path: '/banner', name: 'Banner', component: Banner},
   {path: '/event', name: 'Event', component: Event},
+  {path: '/keyword', name: 'Keyword', component: Keyword},
+  {path: '/notice', name: 'Notice', component: Notice},
 ]
 
 export default routes

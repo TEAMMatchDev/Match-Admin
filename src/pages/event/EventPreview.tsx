@@ -13,7 +13,7 @@ interface EventPreviewProps {
 const EventPreview: React.FC<EventPreviewProps> = ({thumbnail, title, smallTitle, startDate, endDate}) => {
   return (
     <S.EventPreviewContainer>
-      <S.EventPreviewImage src={thumbnail} alt='Event Thumbnail' />
+      <S.EventPreviewImage src={thumbnail} alt='Notice Thumbnail' />
       <S.EventPreviewDetails>
         <S.EventPreviewTitle>{title}</S.EventPreviewTitle>
         <S.EventPreviewSmallTitle>{smallTitle}</S.EventPreviewSmallTitle>
